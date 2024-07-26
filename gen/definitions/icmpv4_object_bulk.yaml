@@ -1,0 +1,83 @@
+---
+name: icmpv4_bulk
+rest_endpoint: /api/fmc_config/v1/domain/{DOMAIN_UUID}/object/icmpv4objects
+doc_category: Objects
+attributes:
+  - model_name: bulk
+    type: List
+    tf_name: ""
+    data_path: []
+    example: "{
+      name        = \"icmpv4_obj\"
+      icmp_type   = \"3\"
+      code        = 0
+      description = \"Test Description\"
+      overridable = true
+      parent_id   = \"icmpv4_obj_uuid\"
+      parent_type = \"ICMPV4Object\"
+      target_id   = \"domain_uuid\"
+      target_type = \"Domain\"
+      target_name = \"Global \\ EUROPE\"
+      }"
+    attributes:
+      - model_name: id
+        type: String
+        id: true
+        description: UUID of the ICMPv4 Object
+      - model_name: name
+        type: String
+        description: The name of the ICMPv4 object (name should be same as parent if overriding)
+        example: icmpv4_obj
+      - model_name: icmpType
+        type: String
+        description: ICMP Type Number
+        example: 3
+      - model_name: code
+        type: Int64
+        description: ICMP Code
+        example: 0
+      - model_name: description
+        type: String
+        description: Description for the ICMPv4 Object
+        example: Test Description
+      - model_name: overridable
+        type: Bool
+        description: Set if ICMPv4 Object is Overridable
+        example: true
+        default: false
+      - model_name: id
+        data_path: [overrides, parent]
+        type: String
+        tf_name: parent_id
+        mandatory: false
+        description: Id of the rescource
+        example: icmpv4_obj_uuid
+      - model_name: type
+        data_path: [overrides, parent]
+        type: String
+        mandatory: false
+        description: Type of the resource
+        tf_name: parent_type
+        example: ICMPV4Object
+        default: ICMPV4Object
+      - model_name: id
+        data_path: [overrides, target]
+        type: String
+        tf_name: target_id
+        mandatory: false
+        description: Id of the rescource
+        example: domain_uuid
+      - model_name: type
+        data_path: [overrides, target]
+        type: String
+        mandatory: false
+        description: Type of the resource [Device/Domain]
+        tf_name: target_type
+        example: Domain
+      - model_name: name
+        data_path: [overrides, target]
+        type: String
+        mandatory: false
+        description: Name of the resource
+        tf_name: target_name
+        example: Global \\ EUROPE
